@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollegeCompass – KEAM 2025 Kerala College Predictor</title>
+    <meta name="description" content="Kerala's most accurate KEAM 2025 rank predictor. Find your perfect engineering college instantly. Free forever.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0A0C14;
+            --bg2: #111320;
+            --card: #161929;
+            --blue: #4A9EFF;
+            --blue2: #2979D9;
+            --green: #34C759;
+            --text: #F0F4FF;
+            --muted: #6B7A99;
+            --border: #1E2540;
+        }
+ 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+        html { scroll-behavior: smooth; }
+ 
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+        }
+ 
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 40px;
+            background: rgba(10, 12, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+ 
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text);
+            text-decoration: none;
+        }
+ 
+        .nav-logo span { color: var(--blue); }
+ 
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+ 
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+ 
+        .nav-links a:hover { color: var(--text); }
+ 
+        .nav-cta {
+            background: var(--blue);
+            color: #fff !important;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background 0.2s !important;
+        }
+ 
+        .nav-cta:hover { background: var(--blue2) !important; color: #fff !important; }
+ 
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 40px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 70% 50%, rgba(74, 158, 255, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(52, 199, 89, 0.05) 0%, transparent 60%);
+        }
+ 
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(74,158,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(74,158,255,0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+ 
+        .hero-content {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+        }
+ 
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(74, 158, 255, 0.1);
+            border: 1px solid rgba(74, 158, 255, 0.3);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            color: var(--blue);
+            margin-bottom: 24px;
+        }
+ 
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+ 
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+ 
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+ 
+        .hero h1 .accent { color: var(--blue); }
+ 
+        .hero p {
+            font-size: 18px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 480px;
+        }
+ 
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+ 
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--blue);
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: 0 8px 32px rgba(74, 158, 255, 0.3);
+        }
+ 
+        .btn-primary:hover {
+            background: var(--blue2);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(74, 158, 255, 0.4);
+        }
+ 
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text);
+            padding: 16px 28px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+ 
+        .btn-secondary:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+ 
+        .hero-pills {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+ 
+        .pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 8px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+ 
+        .pill .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+ 
+        /* Phone mockup */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+ 
+        .phone-frame {
+            width: 280px;
+            background: var(--card);
+            border-radius: 40px;
+            border: 2px solid var(--border);
+            padding: 20px 16px;
+            box-shadow:
+                0 40px 80px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(255,255,255,0.05),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+ 
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-16px); }
+        }
+ 
+        .phone-notch {
+            width: 80px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            margin: 0 auto 16px;
+        }
+ 
+        .phone-screen {
+            background: var(--bg);
+            border-radius: 24px;
+            padding: 16px;
+            min-height: 460px;
+        }
+ 
+        .phone-header {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+ 
+        .phone-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+        }
+ 
+        .phone-sub {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+ 
+        .phone-input {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+        }
+ 
+        .phone-input-label {
+            font-size: 9px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+ 
+        .phone-input-val {
+            font-size: 14px;
+            color: var(--text);
+            font-weight: 600;
+        }
+ 
+        .phone-btn {
+            background: var(--blue);
+            color: #fff;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+ 
+        .phone-result {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+ 
+        .phone-result-name {
+            font-size: 10px;
+            color: var(--text);
+            font-weight: 500;
+            max-width: 160px;
+        }
+ 
+        .phone-result-badge {
+            font-size: 9px;
+            padding: 2px 8px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+ 
+        .safe { background: rgba(52,199,89,0.15); color: var(--green); }
+        .moderate { background: rgba(255,149,0,0.15); color: #FF9500; }
+ 
+        /* ── STATS ── */
+        .stats {
+            padding: 60px 40px;
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+ 
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+ 
+        .stat-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--blue);
+            line-height: 1;
+        }
+ 
+        .stat-label {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+ 
+        /* ── FEATURES ── */
+        .features {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+ 
+        .section-tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--blue);
+            margin-bottom: 16px;
+        }
+ 
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+ 
+        .section-sub {
+            font-size: 17px;
+            color: var(--muted);
+            max-width: 500px;
+            line-height: 1.7;
+            margin-bottom: 60px;
+        }
+ 
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+ 
+        .feature-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--blue), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+ 
+        .feature-card:hover {
+            border-color: rgba(74, 158, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+ 
+        .feature-card:hover::before { opacity: 1; }
+ 
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(74, 158, 255, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(74, 158, 255, 0.2);
+        }
+ 
+        .feature-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+ 
+        .feature-desc {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+ 
+        /* ── HOW IT WORKS ── */
+        .how {
+            padding: 100px 40px;
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+        }
+ 
+        .how-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+ 
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+            position: relative;
+        }
+ 
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 32px;
+            left: 15%;
+            right: 15%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--blue), transparent);
+            opacity: 0.4;
+        }
+ 
+        .step {
+            text-align: center;
+            padding: 32px 24px;
+        }
+ 
+        .step-num {
+            width: 64px;
+            height: 64px;
+            background: var(--card);
+            border: 2px solid var(--blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--blue);
+            margin: 0 auto 24px;
+            box-shadow: 0 0 30px rgba(74, 158, 255, 0.2);
+        }
+ 
+        .step-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+ 
+        .step-desc {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+ 
+        /* ── DOWNLOAD ── */
+        .download {
+            padding: 100px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        .download::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(74, 158, 255, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+ 
+        .download-inner {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+ 
+        .download h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+ 
+        .download p {
+            font-size: 17px;
+            color: var(--muted);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+ 
+        .download-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+ 
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+ 
+        /* ── DISCLAIMER ── */
+        .disclaimer {
+            padding: 24px 40px;
+            background: rgba(255, 149, 0, 0.05);
+            border-top: 1px solid rgba(255, 149, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 149, 0, 0.2);
+            text-align: center;
+        }
+ 
+        .disclaimer p {
+            font-size: 13px;
+            color: #FF9500;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+ 
+        /* ── FOOTER ── */
+        footer {
+            padding: 48px 40px;
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+        }
+ 
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+ 
+        .footer-logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text);
+        }
+ 
+        .footer-logo span { color: var(--blue); }
+ 
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+ 
+        .footer-links a {
+            font-size: 14px;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+ 
+        .footer-links a:hover { color: var(--text); }
+ 
+        .footer-copy {
+            font-size: 13px;
+            color: var(--muted);
+            text-align: center;
+            width: 100%;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            margin-top: 16px;
+        }
+ 
+        /* ── FLOATING BUTTON ── */
+        .float-btn {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 200;
+            background: var(--blue);
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 32px rgba(74, 158, 255, 0.4);
+            transition: all 0.2s;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+ 
+        .float-btn:hover {
+            background: var(--blue2);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(74, 158, 255, 0.5);
+        }
+ 
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+ 
+        /* ── ANIMATIONS ── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+ 
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+ 
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            nav { padding: 16px 20px; }
+            .nav-links { display: none; }
+            .hero { padding: 100px 20px 60px; }
+            .hero-content { grid-template-columns: 1fr; }
+            .hero-visual { display: none; }
+            .stats { padding: 40px 20px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+            .features { padding: 60px 20px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .how { padding: 60px 20px; }
+            .steps { grid-template-columns: 1fr; }
+            .steps::before { display: none; }
+            .download { padding: 60px 20px; }
+            footer { padding: 32px 20px; }
+            .footer-inner { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav>
+    <a href="#" class="nav-logo">🧭 College<span>Compass</span></a>
+    <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="https://github.com/Adith-ai/CollegeCompass" target="_blank">GitHub</a></li>
+        <li><a href="https://github.com/Adith-ai/CollegeCompass/raw/main/app-debug.apk?raw=true" download="CollegeCompass.apk" class="nav-cta">Download APK</a></li>
+    </ul>
+</nav>
+ 
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+        <div>
+            <div class="hero-badge">KEAM 2025 Data • Live</div>
+            <h1>Find Your Path to the Perfect <span class="accent">Engineering College</span></h1>
+            <p>Kerala's most accurate KEAM 2025 rank predictor. Enter your rank, see every college you can get. Powered by real CEE Kerala allotment data.</p>
+            <div class="hero-btns">
+                <a href="https://github.com/Adith-ai/CollegeCompass/raw/main/app-debug.apk?raw=true" download="CollegeCompass.apk" class="btn-primary">
+                    ⬇ Download Free APK
+                </a>
+                <a href="#features" class="btn-secondary">See Features →</a>
+            </div>
+            <div class="hero-pills">
+                <div class="pill"><span class="dot"></span> Free Forever</div>
+                <div class="pill"><span class="dot"></span> Works Offline</div>
+                <div class="pill"><span class="dot"></span> No Login Required</div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="phone-frame">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <div class="phone-header">
+                        <div class="phone-title">🧭 CollegeCompass</div>
+                        <div class="phone-sub">KEAM 2025 Predictor</div>
+                    </div>
+                    <div class="phone-input">
+                        <div class="phone-input-label">Your KEAM Rank</div>
+                        <div class="phone-input-val">5,240</div>
+                    </div>
+                    <div class="phone-input">
+                        <div class="phone-input-label">Category</div>
+                        <div class="phone-input-val">EZ – Ezhava</div>
+                    </div>
+                    <div class="phone-btn">🔍 Predict My Colleges</div>
+                    <div class="phone-result">
+                        <div class="phone-result-name">College of Engineering, Thrissur</div>
+                        <div class="phone-result-badge safe">✅ SAFE</div>
+                    </div>
+                    <div class="phone-result">
+                        <div class="phone-result-name">Model Engineering College, Ernakulam</div>
+                        <div class="phone-result-badge moderate">⚠️ MODERATE</div>
+                    </div>
+                    <div class="phone-result">
+                        <div class="phone-result-name">TKM College of Engineering, Kollam</div>
+                        <div class="phone-result-badge safe">✅ SAFE</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+<!-- STATS -->
+<section class="stats">
+    <div class="stats-grid">
+        <div class="fade-in">
+            <div class="stat-number">142+</div>
+            <div class="stat-label">Engineering Colleges</div>
+        </div>
+        <div class="fade-in">
+            <div class="stat-number">53+</div>
+            <div class="stat-label">Branches & Courses</div>
+        </div>
+        <div class="fade-in">
+            <div class="stat-number">13</div>
+            <div class="stat-label">Kerala Categories</div>
+        </div>
+        <div class="fade-in">
+            <div class="stat-number">7,925</div>
+            <div class="stat-label">Cutoff Records</div>
+        </div>
+    </div>
+</section>
+ 
+<!-- FEATURES -->
+<section class="features" id="features">
+    <div class="fade-in">
+        <div class="section-tag">Features</div>
+        <h2 class="section-title">Everything You Need to<br>Choose the Right College</h2>
+        <p class="section-sub">Built specifically for Kerala engineering aspirants. Real data, real predictions.</p>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🔍</div>
+            <div class="feature-title">Rank Predictor</div>
+            <p class="feature-desc">Enter your KEAM rank and category. Instantly see every college and branch you're eligible for, sorted by chance level — Safe or Moderate.</p>
+        </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🤖</div>
+            <div class="feature-title">AI College Compare</div>
+            <p class="feature-desc">Compare any two colleges side by side with real-time Gemini AI data. Get fees, placement stats, top recruiters, NIRF rank, and a personalized verdict.</p>
+        </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">📊</div>
+            <div class="feature-title">Branch-wise Cutoffs</div>
+            <p class="feature-desc">View opening and closing ranks for every branch in every college. Filter by your category to see exactly where you stand.</p>
+        </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">🏫</div>
+            <div class="feature-title">Browse All Colleges</div>
+            <p class="feature-desc">Search and explore all 142 Kerala engineering colleges. View complete branch listings, cutoff trends, and detailed information for each college.</p>
+        </div>
+    </div>
+</section>
+ 
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+    <div class="how-inner">
+        <div class="fade-in" style="text-align:center">
+            <div class="section-tag">How It Works</div>
+            <h2 class="section-title">3 Steps to Find Your College</h2>
+        </div>
+        <div class="steps">
+            <div class="step fade-in">
+                <div class="step-num">1</div>
+                <div class="step-title">Enter Your Rank</div>
+                <p class="step-desc">Type in your KEAM 2025 rank and select your community category from all 13 Kerala categories.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-num">2</div>
+                <div class="step-title">See Your Options</div>
+                <p class="step-desc">Instantly get a list of all colleges and branches you can get, sorted by Safe and Moderate chances.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-num">3</div>
+                <div class="step-title">Compare & Decide</div>
+                <p class="step-desc">Use AI to compare your top choices — fees, placements, recruiters — and make the perfect decision.</p>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+<!-- DOWNLOAD -->
+<section class="download" id="download">
+    <div class="download-inner fade-in">
+        <div class="section-tag">Download</div>
+        <h2>Get CollegeCompass<br>Free Today</h2>
+        <p>Join thousands of Kerala students making smarter college decisions. No login, no subscription, works offline.</p>
+        <a href="https://github.com/Adith-ai/CollegeCompass/raw/main/app-debug.apk?raw=true"
+           download="CollegeCompass.apk"
+           class="btn-primary"
+           style="display: inline-flex; margin: 0 auto;">
+            ⬇ Download Free APK
+        </a>
+        <div class="download-badges">
+            <div class="badge">✅ Android 8.0+</div>
+            <div class="badge">✅ Free Forever</div>
+            <div class="badge">✅ No Login</div>
+            <div class="badge">✅ Works Offline</div>
+            <div class="badge">✅ 6 MB only</div>
+        </div>
+    </div>
+</section>
+ 
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+    <p>⚠️ Data based on KEAM 2025 Phase 1 allotment. Results are indicative only. Always verify with the official CEE Kerala website at cee.kerala.gov.in before making decisions.</p>
+</div>
+ 
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-logo">🧭 College<span>Compass</span></div>
+        <ul class="footer-links">
+            <li><a href="https://adith-ai.github.io/collegecompass-privacy" target="_blank">Privacy Policy</a></li>
+            <li><a href="https://github.com/Adith-ai/CollegeCompass" target="_blank">GitHub</a></li>
+            <li><a href="mailto:collegecompass26@gmail.com">Contact</a></li>
+        </ul>
+        <div class="footer-copy">
+            Made with ❤️ for Kerala students &nbsp;•&nbsp; CollegeCompass 2025 &nbsp;•&nbsp; Free forever
+        </div>
+    </div>
+</footer>
+ 
+<!-- FLOATING BUTTON -->
+<a href="https://github.com/Adith-ai/CollegeCompass/raw/main/app-debug.apk?raw=true"
+   download="CollegeCompass.apk"
+   class="float-btn">
+    ⬇ Download APK
+</a>
+ 
+<script>
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, i * 100);
+            }
+        });
+    }, { threshold: 0.1 });
+ 
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+ 
+    // Animate stat numbers
+    function animateNumber(el, target) {
+        let start = 0;
+        const duration = 2000;
+        const step = (timestamp) => {
+            if (!start) start = timestamp;
+            const progress = Math.min((timestamp - start) / duration, 1);
+            const value = Math.floor(progress * target);
+            el.textContent = value.toLocaleString() + (el.dataset.suffix || '+');
+            if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+    }
+ 
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const nums = [142, 53, 13, 7925];
+                const suffixes = ['+', '+', '', ''];
+                document.querySelectorAll('.stat-number').forEach((el, i) => {
+                    el.dataset.suffix = suffixes[i];
+                    animateNumber(el, nums[i]);
+                });
+                statsObserver.disconnect();
+            }
+        });
+    }, { threshold: 0.5 });
+ 
+    const statsSection = document.querySelector('.stats');
+    if (statsSection) statsObserver.observe(statsSection);
+</script>
+</body>
+</html>
